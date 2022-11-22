@@ -10,7 +10,7 @@ export default class RelationshipController {
 
             return response.status(200).json({message: "Successfully created relation"});
         } catch (error: any) {
-            return response.status(error.statusCode).json({message: error.message});
+            return response.status(error.statusCode | 404).json({message: error.message});
         }
     }
 
