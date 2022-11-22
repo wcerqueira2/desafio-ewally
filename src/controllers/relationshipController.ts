@@ -9,8 +9,8 @@ export default class RelationshipController {
             await relationshipService.add(request.body);
 
             return response.status(200).json({message: "Successfully created relation"});
-        } catch (error) {
-            return response.status(404).json({message: error});
+        } catch (error: any) {
+            return response.status(error.statusCode).json({message: error.message});
         }
     }
 
@@ -21,8 +21,20 @@ export default class RelationshipController {
             await relationshipService.clear();
 
             return response.status(200).json({message: "Successfully clear"});
-        } catch (error) {
-            return response.status(404).json({message: error});
+        } catch (error: any) {
+            return response.status(404).json({message: error.message});
+        }
+    }
+
+    static async recommendations(request: Request, response: Response) {
+        const relationshipService = new RelationshipService();
+
+        try {
+            const listRecommendations = await relationshipService.recommendations(request.params);
+
+            return response.status(200).json(listRecommendations);
+        } catch (error: any) {
+            return response.status(404).json({message: error.message});
         }
     }
 }

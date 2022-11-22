@@ -9,6 +9,18 @@ export default class RelationshipModel {
         return relations;
     }
 
+    async findForCpf(CPF: String) {
+        const relationsForCpf = relations.filter(relation => relation.cpf1 === CPF);
+
+        return relationsForCpf
+    }
+
+    async findForCpfWithNotRelation(CPF: String, cpfNotRelation : String) {
+        const relationsForCpf = relations.filter(relation => relation.cpf1 === CPF && relation.cpf2 !== cpfNotRelation);
+
+        return relationsForCpf
+    }
+
     async clearAll() {
         relations = [];
 
